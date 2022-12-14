@@ -3,7 +3,11 @@ import { OfferType } from '../../types/OfferType';
 import axios from 'axios';
 import Offer from '../Offer/Offer';
 
-const OfferList = () => {
+type OfferListProps = {
+    setDetails: React.Dispatch<React.SetStateAction<OfferType | undefined>>
+}
+
+const OfferList:React.FC<OfferListProps> = ({setDetails}) => {
     const [data, setData] = useState<OfferType[]>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -24,7 +28,13 @@ const OfferList = () => {
 
     return(
         <>
-        { data?.map((element: OfferType) => <Offer key={element.id} {...element}/>)}
+        { data?.map((element: OfferType) => (
+          <Offer 
+            key={element.id} 
+            {...element} 
+            {...{setDetails}}
+          />
+        ))}
         </>
     )
 }
