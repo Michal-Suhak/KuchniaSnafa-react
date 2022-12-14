@@ -4,10 +4,9 @@ import './App.css'
 import OfferList from './components/OfferList/OfferList'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <OfferList />
+      <OfferList/>
   )
 }
 
