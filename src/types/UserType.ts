@@ -5,5 +5,5 @@ export type UserType = {
     street: string,
     houseNumber: number,
     postCode: string,
-    id: number
+    id?: number
 }

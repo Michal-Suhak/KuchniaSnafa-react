@@ -4,91 +4,68 @@ import { UserType } from '../../types/UserType';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet, useNavigate } from 'react-router-dom';
+import ValidationComponent from '../../Validators/ValidationComponent';
 
-type LoginType = {
-    login: string;
-    password: string;
-}
 
 const Register = () => {
-    const [data, setData] = useState<UserType[]>();
+    const [user, setUser] = useState<UserType>({
+        email: '',
+        password: '',
+        city: '',
+        street: '',
+        houseNumber: 0,
+        postCode: ''
+    });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    const postUser = (email: string, password: string, city: string, street: string, houseNumber: number, postCode: string) => {
+    const postUser = (user: UserType) => {
         axios.post("http://localhost:4000/users", {
-            email: email,
-            password: password,
-            city: city,
-            street: street,
-            houseNumber: houseNumber,
-            postCode: postCode
+            email: user.email,
+            password: user.password,
+            city: user.city,
+            street: user.street,
+            houseNumber: user.houseNumber,
+            postCode: user.postCode
         })
         .then((response) => {
-            setData(response.data)
+            setUser(response.data)
         })
         .catch(error => {
             console.error("Error fetchnig: ", error);
             setError(error);
         })
     }
+    
+    const handleInput = (value: string, name: string) => {
 
-    // const handleRegister = (email: string, password: string, city: string, street: string, houseNumber: number, postCode: string) => {
-    //     postUser(email, password, city, street, houseNumber, postCode);
-    //     if (!error) {
-    //         navigate("/login")
-    //         toast.success('Zarejestrowano porawnie', {
-    //             position: "top-right",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //             });
-    //     } 
-    //     else {
-    //         toast.error('Błąd rejestracji', {
-    //             position: "top-right",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //             });
-    //     }
-    // }
-
-    const handleEmail = (event: React.FormEvent<HTMLInputElement>) => {
-        const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-
-        const isValid = event.currentTarget.value.match(regex) ? true: false;
-
-        console.log(isValid);
+        setUser((prevUser) => ({
+            ...prevUser, [name]: value
+        }))
+    }
+    const handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+        handleInput(event.currentTarget.value, event.currentTarget.name)
     }
 
     return(
         <>
         <form method="POST">
             <label>Email</label>
-            <input name="login" type="text" placeholder="Login" onChange={handleEmail}/>
+            <input name="email" type="text" placeholder="email" onChange={handleOnChange}/>
             <label>Password: </label>
-            {/* <input name="password" type="password" placeholder="Password" onChange={handlePassword}/> */}
+            { <input name="password" type="password" placeholder="Password" onChange={handleOnChange}/> }
             <label>City</label>
-            {/* <input name="city" type="text" placeholder="City" onChange={handleInput}/> */}
+            { <input name="city" type="text" placeholder="City" onChange={handleOnChange}/> }
             <label>Street</label>
-            {/* <input name="street" type="text" placeholder="Street" onChange={handleInput}/> */}
+            { <input name="street" type="text" placeholder="Street" onChange={handleOnChange}/> }
             <label>House Number</label>
-            {/* <input name="houseNumber" type="text" placeholder="House Number" onChange={handleInput}/> */}
+            { <input name="houseNumber" type="number" placeholder="House Number" onChange={handleOnChange}/> }
             <label>Post Code</label>
-            {/* <input name="postCode" type="text" placeholder="Post Code" onChange={handlePostCode}/> */}
-            <input type="submit" value="Zaloguj" />
+            { <input name="postCode" type="text" placeholder="Post Code" onChange={handleOnChange}/> }
         </form>
+        <ValidationComponent {...{user}} onClickFn={postUser}/>
         <Outlet/>
         <ToastContainer/>
         </>

@@ -12,11 +12,11 @@ const OfferDetails:React.FC<OfferType> = ({id,
     return(
         <>
             <p>{id}</p>
-            <p>{title}</p>
-            <p>{description}</p>
-            <p>{price}</p>
+            <p>{title.toUpperCase()}</p>
+            <p>{description.toUpperCase()}</p>
+            <p>{price} PLN/dzień {price * 31} PLN/miesiąc</p>
             <p>{calories}</p>
-            <p>{photoUrl}</p>
+            <img src={photoUrl}></img>
         </>
     )
 }
