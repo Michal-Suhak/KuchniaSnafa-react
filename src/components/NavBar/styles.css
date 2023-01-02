@@ -9,4 +9,10 @@
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 999;
+}
+
+.iconsWrapper {
+  margin-right: 30px;
+  display: flex;
 }

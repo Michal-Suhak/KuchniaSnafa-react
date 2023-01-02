@@ -1,0 +1,28 @@
+.detailWrapper {
+  margin: 5em;
+  display: flex;
+  justify-content: center;
+}
+.info {
+  padding-left: 2em;
+  flex-direction: column;
+}
+.itemWrapper {
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 5em;
+  display: flex;
+  height: 35%;
+  width: 65%;
+  border-radius: 3em;
+  box-shadow: 0 0 1em 0.3em rgb(63, 146, 255);
+  text-align: start;
+}
+.details img {
+  box-shadow: 0 0 0.35em 0.2em rgb(63, 146, 255);
+  border-radius: 3em;
+}
+.details {
+  display: flex;
+  flex-direction: row;
+}

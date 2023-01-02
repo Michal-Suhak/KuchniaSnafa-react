@@ -1,22 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Profile from "../Profile/Profile";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./styles.css";
 
 const NavBar = () => {
+  //const navigate = useNavigate();
   return (
     <div className="navbarWrapper">
-      <h1>Kuchnia Snafa</h1>
-      <img
-        src="public/profile_icon.png"
-        alt="profile"
-        width="50px"
-        height="50px"
-      />
-      <img
-        src="public/cart_icon.png"
-        alt="shoppingCart"
-        width="50px"
-        height="50px"
-      />
+      <a href="/">
+        <h1>Kuchnia Snafa</h1>
+      </a>
+      <div className="iconsWrapper">
+        <Profile />
+        <ShoppingCart />
+      </div>
     </div>
   );
 };
