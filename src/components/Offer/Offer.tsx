@@ -1,6 +1,8 @@
 import React from "react";
 import { OfferType } from "../../types/OfferType";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { setLoggedUser, updateCart } from "../../Redux/userSlice";
 
 type OfferProps = {
   setDetails: React.Dispatch<React.SetStateAction<OfferType | undefined>>;
@@ -16,10 +18,14 @@ const Offer: React.FC<OfferType & OfferProps> = ({
   setDetails,
 }) => {
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.userData);
   const handleClick = () => {
     setDetails({ id, title, description, price, calories, photoUrl });
     navigate(title);
+  };
+  const handleAdd = () => {
+    dispatch(updateCart({ id, title, description, price, calories, photoUrl }));
   };
 
   return (
@@ -29,13 +35,12 @@ const Offer: React.FC<OfferType & OfferProps> = ({
         <div className="offerInfo">
           <h1> {title} </h1>
           <div className="buttons">
+            <button onClick={() => (user.id ? handleAdd() : navigate("login"))}>
+              Dodaj do koszyka
+            </button>
             <button onClick={handleClick}>Szczegóły</button>
           </div>
         </div>
-        {/* <p> ID - {id} </p> */}
-        {/* <p> description - {description} </p>
-            <p> price - {price} </p>
-            <p> calories - {calories} </p> */}
       </div>
       <Outlet />
     </>

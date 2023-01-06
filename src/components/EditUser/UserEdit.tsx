@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet, redirect, useNavigate } from "react-router-dom";
 import ValidationComponent from "../../Validators/ValidationComponent";
+import { useAppSelector } from "../../Redux/hooks";
 
 const UserEdit = () => {
   const [user, setUser] = useState<UserType>({
@@ -21,7 +22,9 @@ const UserEdit = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  const initialValues = JSON.parse(sessionStorage.getItem("user") || "");
+  const initialValues = useAppSelector((state) => state.user.userData);
+  console.log(initialValues);
+  // const initialValues = JSON.parse(sessionStorage.getItem("user") || "");
 
   return (
     <Formik

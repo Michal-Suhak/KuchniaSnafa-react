@@ -23,35 +23,6 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // const postUser = (user: UserType) => {
-  //   axios
-  //     .post("http://localhost:4000/users", {
-  //       email: user.email,
-  //       password: user.password,
-  //       city: user.city,
-  //       street: user.street,
-  //       houseNumber: user.houseNumber,
-  //       postCode: user.postCode,
-  //     })
-  //     .then((response) => {
-  //       setUser(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetchnig: ", error);
-  //       setError(error);
-  //     });
-  // };
-
-  // const handleInput = (value: string, name: string) => {
-  //   setUser((prevUser) => ({
-  //     ...prevUser,
-  //     [name]: name === "houseNumber" ? Number(value) : value,
-  //   }));
-  // };
-  // const handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-  //   handleInput(event.currentTarget.value, event.currentTarget.name);
-  // };
-
   return (
     <Formik
       initialValues={{

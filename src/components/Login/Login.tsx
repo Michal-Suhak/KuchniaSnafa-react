@@ -5,6 +5,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet, redirect, useNavigate } from "react-router-dom";
 
+import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
+
+import { setLoggedUser, updateCart } from "../../Redux/userSlice";
+
 type LoginType = {
   login: string;
   password: string;
@@ -15,6 +19,9 @@ const Login = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.user.userData);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     axios("http://localhost:3000/users")
@@ -43,7 +50,8 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
-        sessionStorage.setItem("user", JSON.stringify(item));
+        // sessionStorage.setItem("user", JSON.stringify(item));
+        dispatch(setLoggedUser(item));
         navigate("/");
       } else {
         toast.error("Logowanie nie powiodło się", {

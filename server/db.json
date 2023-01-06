@@ -103,13 +103,11 @@
       "password": "test",
       "city": "test",
       "street": "test",
-      "houseNumber": 21,
+      "houseNumber": 22,
       "postCode": "37-421",
       "id": 1
     }
   ],
-  "codes": [
-    "ABC"
-  ],
+  "codes": ["ABC"],
   "orders": []
 }

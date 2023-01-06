@@ -1,6 +1,7 @@
 import React from "react";
 import { OfferType } from "../../types/OfferType";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 const OfferDetails: React.FC<OfferType> = ({
   id,
@@ -10,6 +11,7 @@ const OfferDetails: React.FC<OfferType> = ({
   calories,
   photoUrl,
 }) => {
+  const navigate = useNavigate();
   return (
     <>
       {/* <p>{id}</p>
@@ -20,7 +22,7 @@ const OfferDetails: React.FC<OfferType> = ({
             <img src={photoUrl}></img> */}
       <div className="detailWrapper">
         <div className="itemWrapper">
-          <button style={{ margin: "2em 0" }}> {"<"} Powrót</button>
+          <button style={{ margin: "2em 0" }} onClick={() => navigate("/")}> {"<"} Powrót</button>
           <div className="details">
             <div>
               <img
