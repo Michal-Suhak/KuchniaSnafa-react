@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { UserType } from "../../types/UserType";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Outlet, redirect, useNavigate } from "react-router-dom";
-
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
-
-import { setLoggedUser, updateCart } from "../../Redux/userSlice";
+import { setLoggedUser } from "../../Redux/userSlice";
+import "react-toastify/dist/ReactToastify.css";
 
 type LoginType = {
   login: string;
@@ -69,8 +67,10 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="formWrapper">
+      <h1>Zaloguj się</h1>
       <form
+        className="form"
         method="POST"
         onSubmit={(event: React.SyntheticEvent) => {
           event.preventDefault();
@@ -81,15 +81,16 @@ const Login = () => {
           handleLogin(target.login.value, target.password.value);
         }}
       >
-        <label>Login</label>
-        <input name="login" type="text" placeholder="Login" />
-        <label>Password: </label>
-        <input name="password" type="password" placeholder="Password" />
-        <input type="submit" value="Zaloguj" />
+        <input name="login" type="text" placeholder="Adres e-mail" />
+        <input name="password" type="password" placeholder="Hasło" />
+        <button>Zaloguj</button>
       </form>
+      <a style={{ cursor: "pointer" }} onClick={() => navigate("/register")}>
+        Nie masz jeszcze konta?
+      </a>
       <Outlet />
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

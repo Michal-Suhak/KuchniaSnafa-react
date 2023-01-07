@@ -33,3 +33,28 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 0.7em;
+  border: 1px solid gray;
+}
+.form p {
+  color: red;
+  margin: 0 0 0.5em 0;
+  width: 210px;
+}
+.error {
+  border: 1px solid red !important;
+}
