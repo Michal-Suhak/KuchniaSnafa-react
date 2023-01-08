@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../Redux/hooks";
+import "./style.css";
 
 const Order = () => {
   const [validCode, setValidCode] = useState(false);
@@ -47,23 +48,49 @@ const Order = () => {
   };
 
   return (
-    <>
-      {user.offers.map((offer) => (
-        <p key={offer.id}>{offer.title}</p>
-      ))}
-      <p>{validCode ? totalPrice * 0.8 : totalPrice}</p>
-      <button type="button" onClick={() => postOrder()}>
-        Zamów
-      </button>
-      <input
-        type="text"
-        placeholder="Kod promocyjny"
-        onChange={(event) => setCodeValue(event.target.value)}
-      />
-      <button type="button" onClick={() => checkCode(codeValue)}>
-        Zaaplikuj koda kurde ten
-      </button>
-    </>
+    <div className="orderWrapper">
+      <div className="productsList">
+        {user.offers.map((offer) => (
+          <div className="product" key={offer.id}>
+            <p>
+              <b>Dieta: </b>
+              {offer.title}
+            </p>
+            <p>
+              <b>Kaloryczność: </b>
+              {offer.calories} Kcal
+            </p>
+            <p>
+              <b>Cena: </b>
+              {offer.price} PLN
+            </p>
+          </div>
+        ))}
+      </div>
+      <div className="orderingWrapper">
+        <div className="ordering">
+          <p>
+            <b>Suma Zamówienia: </b>
+            {validCode ? totalPrice * 0.8 : totalPrice} PLN
+          </p>
+          <div className="formWrapper">
+            <form className="form">
+              <input
+                type="text"
+                placeholder="Kod promocyjny"
+                onChange={(event) => setCodeValue(event.target.value)}
+              />
+              <button type="button" onClick={() => checkCode(codeValue)}>
+                Dodaj kod
+              </button>
+              <button type="button" onClick={() => postOrder()}>
+                Zamów
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
