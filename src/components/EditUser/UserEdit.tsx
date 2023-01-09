@@ -1,30 +1,25 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { UserType } from "../../types/UserType";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Outlet, redirect, useNavigate } from "react-router-dom";
-import ValidationComponent from "../../Validators/ValidationComponent";
-import { useAppSelector } from "../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { setLoggedUser } from "../../Redux/userSlice";
+
+import { deleteUser } from "../../APICalls"
+import { useNavigate } from "react-router-dom";
+
 
 const UserEdit = () => {
-  const [user, setUser] = useState<UserType>({
-    email: "",
-    password: "",
-    city: "",
-    street: "",
-    houseNumber: 0,
-    postCode: "",
-  });
-  const [error, setError] = useState(null);
-
   const navigate = useNavigate();
   const initialValues = useAppSelector((state) => state.user.userData);
-  console.log(initialValues);
-  // const initialValues = JSON.parse(sessionStorage.getItem("user") || "");
+  const dispatch = useAppDispatch();
+
+  const handleDelete = () => {
+    deleteUser(initialValues);
+    navigate("/");
+  }
 
   return (
     <div className="formWrapper">
@@ -42,7 +37,6 @@ const UserEdit = () => {
               postCode: values.postCode,
             })
             .then((response) => {
-              setUser(response.data);
               toast.info("Pomyślnie zapisano zmiany", {
                 position: "top-right",
                 autoClose: 5000,
@@ -53,11 +47,19 @@ const UserEdit = () => {
                 progress: undefined,
                 theme: "light",
               });
-              sessionStorage.setItem("user", JSON.stringify(response.data));
+              dispatch(setLoggedUser(response.data));
             })
             .catch((error) => {
-              console.error("Error fetchnig: ", error);
-              setError(error);
+              toast.error("Wystąpił błąd, spróbuj ponownie później", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             })
         }
         validationSchema={Yup.object().shape({
@@ -150,7 +152,8 @@ const UserEdit = () => {
                 onBlur={handleBlur}
               />
               <p>{errors.postCode}</p>
-              <button disabled={!(dirty && isValid)}>Zapisz zmiany</button>
+              <button type="submit" disabled={!(dirty && isValid)}>Zapisz zmiany</button>
+              <button type="button" style={{backgroundColor: "red"}} onClick={() => handleDelete()}>Usuń Konto</button>
             </>
           </form>
         )}

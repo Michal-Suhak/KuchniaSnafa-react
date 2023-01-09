@@ -1,38 +1,22 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { UserType } from "../../types/UserType";
 import { ToastContainer, toast } from "react-toastify";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
 import { setLoggedUser } from "../../Redux/userSlice";
 import "react-toastify/dist/ReactToastify.css";
+import { getUser } from "../../APICalls";
 
-type LoginType = {
-  login: string;
-  password: string;
-};
 
 const Login = () => {
   const [data, setData] = useState<UserType[]>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.user.userData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    axios("http://localhost:3000/users")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetchnig: ", error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    getUser(setData);
   }, []);
 
   const handleLogin = (login: string, password: string) => {
@@ -48,7 +32,6 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
-        // sessionStorage.setItem("user", JSON.stringify(item));
         dispatch(setLoggedUser(item));
         navigate("/");
       } else {

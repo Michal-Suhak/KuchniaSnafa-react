@@ -14,12 +14,6 @@ const OfferDetails: React.FC<OfferType> = ({
   const navigate = useNavigate();
   return (
     <>
-      {/* <p>{id}</p>
-            <p>{title.toUpperCase()}</p>
-            <p>{description.toUpperCase()}</p>
-            <p>{price} PLN/dzień {price * 31} PLN/miesiąc</p>
-            <p>{calories}</p>
-            <img src={photoUrl}></img> */}
       <div className="detailWrapper">
         <div className="itemWrapper">
           <button style={{ margin: "2em 0" }} onClick={() => navigate("/")}> {"<"} Powrót</button>
