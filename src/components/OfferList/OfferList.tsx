@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { OfferType } from "../../types/OfferType";
-import axios from "axios";
 import Offer from "../Offer/Offer";
 import "./styles.css";
+import { getData } from "../../APICalls";
 
 type OfferListProps = {
   setDetails: React.Dispatch<React.SetStateAction<OfferType | undefined>>;
@@ -10,22 +10,10 @@ type OfferListProps = {
 
 const OfferList: React.FC<OfferListProps> = ({ setDetails }) => {
   const [data, setData] = useState<OfferType[]>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    axios("http://localhost:3000/offers")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetchnig: ", error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    getData("offers", setData);
   }, []);
 
   const handleChange = (e: { target: { value: string } }) => {

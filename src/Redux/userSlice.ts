@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OfferType } from "../types/OfferType";
 import { UserType } from "../types/UserType";
-import type { RootState } from "./store";
 
-interface UserState {
+export interface UserState {
   userData: UserType;
   offers: OfferType[];
 }

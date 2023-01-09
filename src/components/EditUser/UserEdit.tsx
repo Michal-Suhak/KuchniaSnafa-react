@@ -1,13 +1,10 @@
-import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { setLoggedUser } from "../../Redux/userSlice";
 
-import { deleteUser } from "../../APICalls"
+import { deleteUser, getUser } from "../../APICalls"
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,40 +24,7 @@ const UserEdit = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) =>
-          axios
-            .patch("http://localhost:3000/users/" + initialValues.id, {
-              email: values.email,
-              password: values.password,
-              city: values.city,
-              street: values.street,
-              houseNumber: values.houseNumber,
-              postCode: values.postCode,
-            })
-            .then((response) => {
-              toast.info("Pomyślnie zapisano zmiany", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              dispatch(setLoggedUser(response.data));
-            })
-            .catch((error) => {
-              toast.error("Wystąpił błąd, spróbuj ponownie później", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            })
+          getUser(values, dispatch)
         }
         validationSchema={Yup.object().shape({
           email: Yup.string()

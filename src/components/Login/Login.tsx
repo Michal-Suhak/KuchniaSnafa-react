@@ -2,21 +2,20 @@ import React, { useEffect, useState } from "react";
 import { UserType } from "../../types/UserType";
 import { ToastContainer, toast } from "react-toastify";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
+import { useAppDispatch } from "../../Redux/hooks";
 import { setLoggedUser } from "../../Redux/userSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { getUser } from "../../APICalls";
+import { getData } from "../../APICalls";
 
 
 const Login = () => {
   const [data, setData] = useState<UserType[]>();
   const navigate = useNavigate();
 
-  const user = useAppSelector((state) => state.user.userData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getUser(setData);
+    getData("users", setData);
   }, []);
 
   const handleLogin = (login: string, password: string) => {

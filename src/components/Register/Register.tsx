@@ -1,14 +1,10 @@
-import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { postUser } from "../../APICalls";
 
 const Register = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="formWrapper">
       <h1>Zarejestruj się</h1>
@@ -22,31 +18,7 @@ const Register = () => {
           postCode: "",
         }}
         onSubmit={async (values) =>
-          axios
-            .post("http://localhost:3000/users", {
-              email: values.email,
-              password: values.password,
-              city: values.city,
-              street: values.street,
-              houseNumber: values.houseNumber,
-              postCode: values.postCode,
-            })
-            .then((response) => {
-              toast.success("Zarejestrowano pomyślnie", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              response.status === 200 && navigate("/");
-            })
-            .catch((error) => {
-              console.error("Error fetchnig: ", error);
-            })
+          postUser(values)
         }
         validationSchema={Yup.object().shape({
           email: Yup.string()
