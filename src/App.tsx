@@ -17,7 +17,7 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <NavBar />
+        <NavBar appTitle="Kuchnia Snafa"/>
         <Routes>
           <Route path="/" element={<OfferList {...{ setDetails }} />} />
           <Route path="/login" element={<Login />} />

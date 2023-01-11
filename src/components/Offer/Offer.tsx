@@ -2,7 +2,7 @@ import React from "react";
 import { OfferType } from "../../types/OfferType";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { setLoggedUser, updateCart } from "../../Redux/userSlice";
+import { updateCart } from "../../Redux/userSlice";
 
 type OfferProps = {
   setDetails: React.Dispatch<React.SetStateAction<OfferType | undefined>>;
