@@ -28,7 +28,6 @@ function App() {
             path="/:title"
             element={
               <OfferDetails
-                title={details?.title || ""}
                 description={details?.description || ""}
                 price={details?.price || 0}
                 calories={details?.calories || ""}

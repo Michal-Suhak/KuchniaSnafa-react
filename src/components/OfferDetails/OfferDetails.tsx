@@ -1,16 +1,15 @@
 import React from "react";
 import { OfferType } from "../../types/OfferType";
 import "./styles.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const OfferDetails: React.FC<OfferType> = ({
-  id,
-  title,
   description,
   price,
   calories,
   photoUrl,
 }) => {
+  const {title} = useParams();
   const navigate = useNavigate();
   return (
     <>

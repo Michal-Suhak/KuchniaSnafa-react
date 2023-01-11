@@ -1,7 +1,7 @@
 
 export type OfferType = {
     id?: number;
-    title: string;
+    title?: string;
     description: string;
     price: number;
     calories: string;
