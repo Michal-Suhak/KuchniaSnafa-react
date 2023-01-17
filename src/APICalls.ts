@@ -48,7 +48,7 @@ export const getData = (
   });
 };
 
-export const getUser = (values: UserType, dispatch: AppDispatch) => {
+export const updateUser = (values: UserType, dispatch: AppDispatch) => {
   axios
     .patch("http://localhost:3000/users/" + values.id, {
       email: values.email,

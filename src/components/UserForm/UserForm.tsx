@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 
-import { deleteUser, getUser, postUser } from "../../APICalls";
+import { deleteUser, postUser, updateUser } from "../../APICalls";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "../../types/UserType";
 import React from "react";
@@ -36,7 +36,7 @@ const UserForm: React.FC<UserFormProps> = ({ formType, initialValues }) => {
         initialValues={initialValues}
         onSubmit={(values) =>
           formType === "edit"
-            ? getUser(values, dispatch)
+            ? updateUser(values, dispatch)
             : formType === "register"
             ? postUser(values, navigate)
             : undefined
