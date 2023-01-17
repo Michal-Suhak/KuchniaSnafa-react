@@ -30,12 +30,12 @@ const OfferList: React.FC<OfferListProps> = ({ setDetails }) => {
         onChange={handleChange}
       />
       <div className="offersWrapper">
-        {data?.map((data) => {
+        {data?.map((element) => {
           if (
             query == "" ||
-            data.title.toLowerCase().includes(query.toLowerCase())
+            element?.title?.toLowerCase().includes(query.toLowerCase())
           ) {
-            return <Offer key={data.id} {...data} {...{ setDetails }} />;
+            return <Offer key={element.id} {...element} {...{ setDetails }} />;
           }
           return null;
         })}

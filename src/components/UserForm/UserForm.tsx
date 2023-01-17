@@ -4,36 +4,42 @@ import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 
-import { deleteUser, getUser } from "../../APICalls"
+import { deleteUser, getUser, postUser } from "../../APICalls";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "../../types/UserType";
 import React from "react";
 
-
 interface UserFormProps {
-    formType: "edit" | "register",
-    initialValues: UserType
+  formType: "edit" | "register";
+  initialValues: UserType;
 }
 
-const UserForm: React.FC<UserFormProps> = ({
-    formType,
-    initialValues
-}) => {
+const UserForm: React.FC<UserFormProps> = ({ formType, initialValues }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleDelete = () => {
     deleteUser(initialValues);
     navigate("/");
-  }
+  };
 
   return (
     <div className="formWrapper">
-      <h1>{formType === "edit" ? "Edytuj swoje dane": formType === "register" ? "Zarejestruj się": ""}</h1>
+      <h1>
+        {formType === "edit"
+          ? "Edytuj swoje dane"
+          : formType === "register"
+          ? "Zarejestruj się"
+          : ""}
+      </h1>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) =>
-          getUser(values, dispatch)
+          formType === "edit"
+            ? getUser(values, dispatch)
+            : formType === "register"
+            ? postUser(values, navigate)
+            : undefined
         }
         validationSchema={Yup.object().shape({
           email: Yup.string()
@@ -125,11 +131,22 @@ const UserForm: React.FC<UserFormProps> = ({
                 onBlur={handleBlur}
               />
               <p>{errors.postCode}</p>
-              <button type="submit" disabled={!(dirty && isValid)}>{formType === "edit" ? "Zapisz zmiany": formType === "register" ? "Zarejestruj": ""}</button>
-              {formType === "edit" ?
-                <button type="button" style={{backgroundColor: "red"}} onClick={() => handleDelete()}>Usuń Konto</button>
-                :null
-              }
+              <button type="submit" disabled={!(dirty && isValid)}>
+                {formType === "edit"
+                  ? "Zapisz zmiany"
+                  : formType === "register"
+                  ? "Zarejestruj"
+                  : ""}
+              </button>
+              {formType === "edit" ? (
+                <button
+                  type="button"
+                  style={{ backgroundColor: "red" }}
+                  onClick={() => handleDelete()}
+                >
+                  Usuń Konto
+                </button>
+              ) : null}
             </>
           </form>
         )}

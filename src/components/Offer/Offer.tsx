@@ -22,7 +22,7 @@ const Offer: React.FC<OfferType & OfferProps> = ({
   const user = useAppSelector((state) => state.user.userData);
   const handleClick = () => {
     setDetails({ id, title, description, price, calories, photoUrl });
-    navigate(title);
+    navigate(title || "/");
   };
   const handleAdd = () => {
     dispatch(updateCart({ id, title, description, price, calories, photoUrl }));
