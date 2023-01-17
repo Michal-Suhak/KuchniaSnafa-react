@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCodes, postOrder } from "../../APICalls";
 import { useAppSelector } from "../../Redux/hooks";
 import "./style.css";
@@ -6,6 +7,7 @@ import "./style.css";
 const Order = () => {
   const [validCode, setValidCode] = useState(false);
   const [codeValue, setCodeValue] = useState("");
+  const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.user);
 
@@ -56,7 +58,7 @@ const Order = () => {
               </button>
               <button
                 type="button"
-                onClick={() => postOrder(user, totalPrice, validCode)}
+                onClick={() => postOrder(user, totalPrice, validCode, navigate)}
               >
                 Zamów
               </button>

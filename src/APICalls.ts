@@ -126,9 +126,9 @@ export const postUser = (
 export const postOrder = (
   user: UserState,
   totalPrice: number,
-  validCode: boolean
+  validCode: boolean,
+  navigate: unknown
 ) => {
-  const navigate = useNavigate();
 
   axios
     .post("http://localhost:3000/orders/", {
