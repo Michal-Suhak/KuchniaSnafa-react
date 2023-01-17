@@ -15,14 +15,14 @@ const Order = () => {
   );
 
   const checkCode = (code: string) => {
-    getCodes(code, setValidCode)
+    getCodes(code, setValidCode);
   };
 
   return (
     <div className="orderWrapper">
       <div className="productsList">
-        {user.offers.map((offer) => (
-          <div className="product" key={offer.id}>
+        {user.offers.map((offer, idx) => (
+          <div className="product" key={idx}>
             <p>
               <b>Dieta: </b>
               {offer.title}
@@ -54,7 +54,10 @@ const Order = () => {
               <button type="button" onClick={() => checkCode(codeValue)}>
                 Dodaj kod
               </button>
-              <button type="button" onClick={() => postOrder(user, totalPrice, validCode)}>
+              <button
+                type="button"
+                onClick={() => postOrder(user, totalPrice, validCode)}
+              >
                 Zamów
               </button>
             </form>
