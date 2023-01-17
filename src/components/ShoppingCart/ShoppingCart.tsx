@@ -34,9 +34,9 @@ const ShoppingCart = () => {
           className="shoppingCartWrapper"
           style={{ display: visible ? "flex" : "none" }}
         >
-          {offers.map((offer) => (
-            <div key={offer.id} style={{ padding: "0.25em" }}>
-              {offer.title.toUpperCase()} <b>{offer.price} PLN\dzień</b>
+          {offers.map((offer, idx) => (
+            <div key={idx} style={{ padding: "0.25em" }}>
+              {offer?.title?.toUpperCase()} <b>{offer.price} PLN\dzień</b>
             </div>
           ))}
           <div className="orderInfo">
